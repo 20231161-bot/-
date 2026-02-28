@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チームカラー診断 - あなたのポジションは？</title>
+    <meta name="description" content="中高生向けチームポジション診断。遊び制作プログラムで活躍できる、あなたの得意な役割がわずか5分でわかります！">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- トップ画面 -->
+    <main id="top-screen" class="screen active">
+        <div class="container">
+            <h1 class="title">チームカラー診断<br><span class="subtitle">〜あなたのポジションは？〜</span></h1>
+            <p class="description">
+                文化祭、体育祭、部活、ゲーム制作...<br>
+                チームで何かを作るとき、あなたにぴったりな役割は？<br>
+                約5分の簡単な質問で、あなたの「得意」を見つけよう！
+            </p>
+            <div class="features">
+                <div class="feature-item">⏱️ 所要時間: 約5分</div>
+                <div class="feature-item">📝 質問数: 全22問</div>
+            </div>
+            <button id="start-btn" class="btn btn-primary btn-large glow-effect">診断スタート！</button>
+            <button id="view-all-types-top-btn" class="btn btn-secondary btn-large"
+                style="margin-bottom: 1rem;">全16タイプ一覧を見る</button>
+            <button id="load-saved-btn" class="btn btn-secondary btn-large hidden"
+                style="margin-bottom: 1rem;">前回の診断結果を見る</button>
+            <p class="privacy-note">※診断結果はブラウザにのみ保存され、個人情報は収集しません。</p>
+        </div>
+    </main>
+
+    <!-- 診断画面 -->
+    <main id="quiz-screen" class="screen hidden">
+        <div class="container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <div class="progress-text"><span id="current-q-num">1</span> / 22</div>
+            </div>
+
+            <div class="question-container">
+                <span class="q-label">Q<span id="q-label-num">1</span>.</span>
+                <h2 id="question-text" class="question-text">質問文がここに入ります</h2>
+            </div>
+
+            <div id="choices-container" class="mbti-choices-container">
+                <!-- 5つの丸ボタンがJSで動的に生成されます -->
+            </div>
+
+            <div class="mbti-labels">
+                <span class="label-agree">YES</span>
+                <span class="label-disagree">NO</span>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="back-btn" class="btn btn-secondary btn-small hidden">◀ 前の質問へ戻る</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 結果画面 -->
+    <main id="result-screen" class="screen hidden">
+        <div class="container result-container">
+            <div class="result-header">
+                <p>あなたのチームポジションは...</p>
+                <div class="mbti-type-badge" id="result-type-mbti">ENFP</div>
+                <h1 id="result-type-ja" class="result-title">ひらめきメーカー</h1>
+
+                <img id="result-type-image" class="result-image" style="display: none;" src="" alt="タイプイメージ">
+            </div>
+
+            <div class="result-card glass">
+                <h3 class="card-title">✨ どんなタイプ？</h3>
+                <p id="result-desc" class="result-text">説明文がここに入ります。</p>
+
+                <h3 class="card-title">💪 あなたの強み</h3>
+                <p id="result-strengths" class="result-text">強みがここに入ります。</p>
+
+                <h3 class="card-title">🎮 遊び制作での立ち回り</h3>
+                <p id="result-role" class="result-text">立ち回りがここに入ります。</p>
+            </div>
+
+            <!-- アルファベット4文字の解説セクション -->
+            <div class="result-card glass axes-explanation-card">
+                <h3 class="card-title">📖 あなたのアルファベットの意味</h3>
+                <div class="axis-item">
+                    <span class="axis-letter">O / I</span>
+                    <p class="axis-desc"><strong>O</strong>utput (発信・表舞台)　/　<strong>I</strong>nput (傾聴・データ収集)</p>
+                </div>
+                <div class="axis-item">
+                    <span class="axis-letter">V / D</span>
+                    <p class="axis-desc"><strong>V</strong>ision (直感・構想)　/　<strong>D</strong>etail (現実・詳細)</p>
+                </div>
+                <div class="axis-item">
+                    <span class="axis-letter">L / E</span>
+                    <p class="axis-desc"><strong>L</strong>ogic (論理・効率)　/　<strong>E</strong>motion (感情・協調)</p>
+                </div>
+                <div class="axis-item">
+                    <span class="axis-letter">P / F</span>
+                    <p class="axis-desc"><strong>P</strong>lanning (計画・進行)　/　<strong>F</strong>lexible (柔軟・臨機応変)</p>
+                </div>
+            </div>
+
+            <!-- もっと詳しく（ディープダイブ）セクション -->
+            <div class="result-card glass deep-dive-card">
+                <h3 class="card-title">🔍 もっと詳しく（Deep Dive）</h3>
+                <p id="result-deep-dive" class="result-text deep-dive-text">ディープダイブのテキストがここに入ります。</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="share-btn" class="btn btn-primary share-btn">
+                    <span class="icon">🔗</span> 結果をシェアする
+                </button>
+                <button id="view-all-types-result-btn" class="btn btn-secondary share-btn" style="margin-top:0;">
+                    <span class="icon">📋</span> 全タイプ一覧を見る
+                </button>
+                <button id="restart-btn" class="btn btn-secondary retry-btn">
+                    <span class="icon">🔄</span> もう一度診断する
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 全タイプ一覧画面 -->
+    <main id="types-list-screen" class="screen hidden">
+        <div class="container list-container">
+            <div class="result-header">
+                <h1 class="result-title" style="font-size: 2rem;">全16タイプ一覧</h1>
+                <p>チームを彩る多種多様なカラーたち</p>
+            </div>
+
+            <div id="all-types-container" class="all-types-grid">
+                <!-- JSで動的にカードが生成されます -->
+            </div>
+
+            <div class="action-buttons" style="margin-top: 2rem;">
+                <button id="back-to-top-btn" class="btn btn-secondary btn-large">
+                    <span class="icon">🏠</span> トップへ戻る
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
