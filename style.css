@@ -311,155 +311,106 @@ body {
     font-weight: 700;
 }
 
-.mbti-choices-container {
+.choices-container-flex {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: var(--space-xl) auto var(--space-sm);
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: var(--space-xl) auto var(--space-xl);
     max-width: 400px;
 }
 
-.mbti-btn {
-    border: 3px solid transparent;
-    border-radius: 50%;
+.choice-btn {
+    padding: var(--space-md) var(--space-lg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: 1.05rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    animation: scaleIn 0.3s ease-out forwards;
-    opacity: 0;
+    background: var(--color-surface);
+    color: var(--color-text-main);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    width: 100%;
 }
 
-.mbti-btn:focus-visible {
+.choice-btn:focus-visible {
     outline: 2px solid var(--color-text-main);
     outline-offset: 2px;
 }
 
-/* 5段階のサイズと色 */
-.mbti-btn-size-2 {
-    /* Strongly Agree */
-    width: 60px;
-    height: 60px;
-    border-color: var(--color-primary);
-    /* 赤/ピンク系 */
-    background: transparent;
+.choice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    /* Enhance shadow */
 }
 
-.mbti-btn-size-2:hover {
+/* Colors for vertical buttons */
+.btn-color-agree-strong {
+    border-color: var(--color-primary);
+}
+
+.btn-color-agree-strong:hover {
     background: rgba(255, 107, 107, 0.1);
 }
 
-.mbti-btn-size-2.selected {
+.btn-color-agree-strong.selected {
     background: var(--color-primary);
+    color: white;
 }
 
-.mbti-btn-size-1 {
-    /* Agree */
-    width: 45px;
-    height: 45px;
-    border-color: var(--color-primary);
-    opacity: 0.8;
-    background: transparent;
+.btn-color-agree {
+    border-color: rgba(255, 107, 107, 0.5);
 }
 
-.mbti-btn-size-1:hover {
-    background: rgba(255, 107, 107, 0.1);
+.btn-color-agree:hover {
+    background: rgba(255, 107, 107, 0.05);
 }
 
-.mbti-btn-size-1.selected {
-    background: var(--color-primary);
-    opacity: 1;
+.btn-color-agree.selected {
+    background: rgba(255, 107, 107, 0.8);
+    color: white;
+    border-color: rgba(255, 107, 107, 0.8);
 }
 
-.mbti-btn-size-0 {
-    /* Neutral */
-    width: 35px;
-    height: 35px;
+.btn-color-neutral {
     border-color: #A0AAB2;
-    background: transparent;
 }
 
-.mbti-btn-size-0:hover {
+.btn-color-neutral:hover {
     background: rgba(160, 170, 178, 0.1);
 }
 
-.mbti-btn-size-0.selected {
+.btn-color-neutral.selected {
     background: #A0AAB2;
+    color: white;
 }
 
-.mbti-btn-size--1 {
-    /* Disagree */
-    width: 45px;
-    height: 45px;
+.btn-color-disagree {
+    border-color: rgba(78, 205, 196, 0.5);
+}
+
+.btn-color-disagree:hover {
+    background: rgba(78, 205, 196, 0.05);
+}
+
+.btn-color-disagree.selected {
+    background: rgba(78, 205, 196, 0.8);
+    color: white;
+    border-color: rgba(78, 205, 196, 0.8);
+}
+
+.btn-color-disagree-strong {
     border-color: var(--color-secondary);
-    /* グリーン/ブルー系 */
-    opacity: 0.8;
-    background: transparent;
 }
 
-.mbti-btn-size--1:hover {
+.btn-color-disagree-strong:hover {
     background: rgba(78, 205, 196, 0.1);
 }
 
-.mbti-btn-size--1.selected {
+.btn-color-disagree-strong.selected {
     background: var(--color-secondary);
-    opacity: 1;
-}
-
-.mbti-btn-size--2 {
-    /* Strongly Disagree */
-    width: 60px;
-    height: 60px;
-    border-color: var(--color-secondary);
-    background: transparent;
-}
-
-.mbti-btn-size--2:hover {
-    background: rgba(78, 205, 196, 0.1);
-}
-
-.mbti-btn-size--2.selected {
-    background: var(--color-secondary);
-}
-
-/* 選択された時はチェックマークなどを入れる代わりの色変化↑ */
-
-/* 少しずつ遅延表示 */
-.mbti-btn:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.mbti-btn:nth-child(2) {
-    animation-delay: 0.15s;
-}
-
-.mbti-btn:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.mbti-btn:nth-child(4) {
-    animation-delay: 0.25s;
-}
-
-.mbti-btn:nth-child(5) {
-    animation-delay: 0.3s;
-}
-
-/* ラベル領域 */
-.mbti-labels {
-    display: flex;
-    justify-content: space-between;
-    max-width: 400px;
-    margin: 0 auto var(--space-xl);
-    font-weight: 700;
-    font-size: 0.95rem;
-}
-
-.label-agree {
-    color: var(--color-primary);
-}
-
-.label-disagree {
-    color: var(--color-secondary);
+    color: white;
 }
 
 .quiz-footer {
@@ -666,19 +617,12 @@ body {
 }
 
 .list-desc {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
     margin-bottom: var(--space-sm);
-    flex-grow: 1;
+    color: var(--color-text);
 }
 
-.list-strength {
-    font-size: 0.85rem;
-    margin-top: auto;
-    background: rgba(255, 230, 109, 0.2);
-    padding: 6px 10px;
-    border-radius: var(--radius-sm);
-}
 
 /* =============== レスポンシブ調整 =============== */
 @media (max-width: 480px) {

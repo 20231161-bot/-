@@ -25,7 +25,7 @@
             </p>
             <div class="features">
                 <div class="feature-item">⏱️ 所要時間: 約5分</div>
-                <div class="feature-item">📝 質問数: 全22問</div>
+                <div class="feature-item">📝 質問数: 全30問</div>
             </div>
             <button id="start-btn" class="btn btn-primary btn-large glow-effect">診断スタート！</button>
             <button id="view-all-types-top-btn" class="btn btn-secondary btn-large"
@@ -43,7 +43,7 @@
                 <div class="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div>
                 </div>
-                <div class="progress-text"><span id="current-q-num">1</span> / 22</div>
+                <div class="progress-text"><span id="current-q-num">1</span> / 30</div>
             </div>
 
             <div class="question-container">
@@ -51,14 +51,11 @@
                 <h2 id="question-text" class="question-text">質問文がここに入ります</h2>
             </div>
 
-            <div id="choices-container" class="mbti-choices-container">
+            <div id="choices-container" class="choices-container-flex">
                 <!-- 5つの丸ボタンがJSで動的に生成されます -->
             </div>
 
-            <div class="mbti-labels">
-                <span class="label-agree">YES</span>
-                <span class="label-disagree">NO</span>
-            </div>
+
 
             <div class="quiz-footer">
                 <button id="back-btn" class="btn btn-secondary btn-small hidden">◀ 前の質問へ戻る</button>
@@ -71,7 +68,7 @@
         <div class="container result-container">
             <div class="result-header">
                 <p>あなたのチームポジションは...</p>
-                <div class="mbti-type-badge" id="result-type-mbti">ENFP</div>
+                <div id="result-type-mbti" style="display:none;"></div>
                 <h1 id="result-type-ja" class="result-title">ひらめきメーカー</h1>
 
                 <img id="result-type-image" class="result-image" style="display: none;" src="" alt="タイプイメージ">
@@ -81,33 +78,11 @@
                 <h3 class="card-title">✨ どんなタイプ？</h3>
                 <p id="result-desc" class="result-text">説明文がここに入ります。</p>
 
-                <h3 class="card-title">💪 あなたの強み</h3>
-                <p id="result-strengths" class="result-text">強みがここに入ります。</p>
-
-                <h3 class="card-title">🎮 遊び制作での立ち回り</h3>
+                <h3 class="card-title">🎮 遊び制作での役割</h3>
                 <p id="result-role" class="result-text">立ち回りがここに入ります。</p>
             </div>
 
-            <!-- アルファベット4文字の解説セクション -->
-            <div class="result-card glass axes-explanation-card">
-                <h3 class="card-title">📖 あなたのアルファベットの意味</h3>
-                <div class="axis-item">
-                    <span class="axis-letter">O / I</span>
-                    <p class="axis-desc"><strong>O</strong>utput (発信・表舞台)　/　<strong>I</strong>nput (傾聴・データ収集)</p>
-                </div>
-                <div class="axis-item">
-                    <span class="axis-letter">V / D</span>
-                    <p class="axis-desc"><strong>V</strong>ision (直感・構想)　/　<strong>D</strong>etail (現実・詳細)</p>
-                </div>
-                <div class="axis-item">
-                    <span class="axis-letter">L / E</span>
-                    <p class="axis-desc"><strong>L</strong>ogic (論理・効率)　/　<strong>E</strong>motion (感情・協調)</p>
-                </div>
-                <div class="axis-item">
-                    <span class="axis-letter">P / F</span>
-                    <p class="axis-desc"><strong>P</strong>lanning (計画・進行)　/　<strong>F</strong>lexible (柔軟・臨機応変)</p>
-                </div>
-            </div>
+
 
             <!-- もっと詳しく（ディープダイブ）セクション -->
             <div class="result-card glass deep-dive-card">
