@@ -1,0 +1,733 @@
+/* =============== 変数定義（デザインシステム） =============== */
+:root {
+    /* カラーパレット - 中高生向け親しみやすいVivid & Pastel */
+    --color-primary: #FF6B6B;
+    /* ポップなレッド/ピンク */
+    --color-primary-hover: #FF5252;
+    --color-secondary: #4ECDC4;
+    /* 爽やかなミントグリーン */
+    --color-secondary-hover: #45B7D1;
+    --color-accent: #FFE66D;
+    /* アクセントイエロー */
+    --color-bg: #F7F9FC;
+    /* 背景色（明るいグレーッシュブルー） */
+    --color-surface: #FFFFFF;
+    /* カード等の背景色 */
+    --color-text-main: #2D3436;
+    /* メインテキスト（墨黒） */
+    --color-text-muted: #636E72;
+    /* サブテキスト */
+
+    /* 余白 (Spacing) */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+
+    /* 角丸 (Border Radius) */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 9999px;
+
+    /* シャドウ (Shadows) */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 0 20px rgba(255, 107, 107, 0.4);
+
+    /* タイポグラフィ */
+    --font-family: 'M PLUS Rounded 1c', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+/* =============== リセットとベース設定 =============== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* 背景のグラデーション装飾 */
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(78, 205, 196, 0.15), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(255, 107, 107, 0.15), transparent 30%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =============== 共通コンテナ =============== */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    padding: var(--space-xl) var(--space-lg);
+}
+
+/* =============== 画面切り替え（SPA状態） =============== */
+.screen {
+    display: none;
+    flex-grow: 1;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =============== ボタン共通スタイル =============== */
+.btn {
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius-pill);
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    outline: none;
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 4px var(--color-accent);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-text-muted);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(99, 110, 114, 0.05);
+    color: var(--color-text-main);
+    border-color: var(--color-text-main);
+}
+
+.btn-large {
+    width: 100%;
+    max-width: 320px;
+    padding: 1.2rem;
+    font-size: 1.4rem;
+}
+
+.glow-effect {
+    animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 107, 107, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+    }
+}
+
+/* =============== トップ画面 =============== */
+#top-screen .container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(255, 107, 107, 0.1);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-main);
+    font-weight: 700;
+}
+
+.description {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+    line-height: 1.8;
+}
+
+.features {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature-item {
+    background: var(--color-surface);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+}
+
+#start-btn {
+    margin-bottom: var(--space-md);
+}
+
+.privacy-note {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    opacity: 0.8;
+}
+
+/* =============== 診断画面 =============== */
+.progress-container {
+    margin-bottom: var(--space-xl);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 14px;
+    background-color: rgba(99, 110, 114, 0.15);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    margin-bottom: var(--space-xs);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: var(--radius-pill);
+}
+
+.progress-text {
+    text-align: right;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+}
+
+.question-container {
+    margin-bottom: var(--space-xl);
+    min-height: 100px;
+    /* レイアウトシフト防止用 */
+}
+
+.q-label {
+    display: inline-block;
+    color: var(--color-secondary);
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin-bottom: var(--space-xs);
+}
+
+.question-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.mbti-choices-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--space-xl) auto var(--space-sm);
+    max-width: 400px;
+}
+
+.mbti-btn {
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: scaleIn 0.3s ease-out forwards;
+    opacity: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.mbti-btn:focus-visible {
+    outline: 2px solid var(--color-text-main);
+    outline-offset: 2px;
+}
+
+/* 5段階のサイズと色 */
+.mbti-btn-size-2 {
+    /* Strongly Agree */
+    width: 60px;
+    height: 60px;
+    border-color: var(--color-primary);
+    /* 赤/ピンク系 */
+    background: transparent;
+}
+
+.mbti-btn-size-2:hover {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.mbti-btn-size-2.selected {
+    background: var(--color-primary);
+}
+
+.mbti-btn-size-1 {
+    /* Agree */
+    width: 45px;
+    height: 45px;
+    border-color: var(--color-primary);
+    opacity: 0.8;
+    background: transparent;
+}
+
+.mbti-btn-size-1:hover {
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.mbti-btn-size-1.selected {
+    background: var(--color-primary);
+    opacity: 1;
+}
+
+.mbti-btn-size-0 {
+    /* Neutral */
+    width: 35px;
+    height: 35px;
+    border-color: #A0AAB2;
+    background: transparent;
+}
+
+.mbti-btn-size-0:hover {
+    background: rgba(160, 170, 178, 0.1);
+}
+
+.mbti-btn-size-0.selected {
+    background: #A0AAB2;
+}
+
+.mbti-btn-size--1 {
+    /* Disagree */
+    width: 45px;
+    height: 45px;
+    border-color: var(--color-secondary);
+    /* グリーン/ブルー系 */
+    opacity: 0.8;
+    background: transparent;
+}
+
+.mbti-btn-size--1:hover {
+    background: rgba(78, 205, 196, 0.1);
+}
+
+.mbti-btn-size--1.selected {
+    background: var(--color-secondary);
+    opacity: 1;
+}
+
+.mbti-btn-size--2 {
+    /* Strongly Disagree */
+    width: 60px;
+    height: 60px;
+    border-color: var(--color-secondary);
+    background: transparent;
+}
+
+.mbti-btn-size--2:hover {
+    background: rgba(78, 205, 196, 0.1);
+}
+
+.mbti-btn-size--2.selected {
+    background: var(--color-secondary);
+}
+
+/* 選択された時はチェックマークなどを入れる代わりの色変化↑ */
+
+/* 少しずつ遅延表示 */
+.mbti-btn:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.mbti-btn:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.mbti-btn:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.mbti-btn:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.mbti-btn:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+/* ラベル領域 */
+.mbti-labels {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto var(--space-xl);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.label-agree {
+    color: var(--color-primary);
+}
+
+.label-disagree {
+    color: var(--color-secondary);
+}
+
+.quiz-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =============== 結果画面 =============== */
+.result-container {
+    animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.result-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.result-header p {
+    font-weight: 700;
+    color: var(--color-text-muted);
+}
+
+.mbti-type-badge {
+    display: inline-block;
+    color: var(--color-primary);
+    font-weight: 900;
+    font-size: 3rem;
+    margin: var(--space-xs) 0 0;
+    letter-spacing: 4px;
+    text-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+}
+
+.result-title {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    line-height: 1.3;
+}
+
+.result-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--space-md) auto 0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: block;
+    object-fit: cover;
+}
+
+/* Glassmorphism card */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-xl);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: var(--color-secondary);
+    margin-bottom: var(--space-xs);
+    border-bottom: 2px dashed rgba(78, 205, 196, 0.3);
+    padding-bottom: var(--space-xs);
+}
+
+.result-text {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+.result-text:last-child {
+    margin-bottom: 0;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.share-btn {
+    width: 100%;
+    max-width: 320px;
+}
+
+.retry-btn {
+    width: 100%;
+    max-width: 320px;
+    margin-top: calc(var(--space-sm) * -1);
+}
+
+.icon {
+    margin-right: var(--space-xs);
+    font-size: 1.2em;
+}
+
+/* 4文字アルファベット解説セクション */
+.axes-explanation-card {
+    text-align: left;
+}
+
+.axis-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.axis-item:last-child {
+    border-bottom: none;
+}
+
+.axis-letter {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--color-accent);
+    min-width: 60px;
+    text-align: center;
+    background: rgba(255, 107, 107, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+.axis-desc {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+}
+
+.axis-desc strong {
+    color: var(--color-primary);
+    font-size: 1.1em;
+}
+
+/* ディープダイブセクション */
+.deep-dive-card {
+    text-align: left;
+}
+
+.deep-dive-text {
+    line-height: 1.8;
+}
+
+/* 全タイプ一覧画面 */
+.list-container {
+    padding-top: var(--space-xl);
+}
+
+.all-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.type-card-mini {
+    padding: var(--space-md);
+    margin-bottom: 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+    border-bottom: 2px solid rgba(78, 205, 196, 0.2);
+    padding-bottom: var(--space-sm);
+}
+
+.list-type-image {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.list-card-title-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-badge {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.list-title {
+    font-size: 1rem;
+    margin: 0;
+    border: none;
+}
+
+.list-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+    flex-grow: 1;
+}
+
+.list-strength {
+    font-size: 0.85rem;
+    margin-top: auto;
+    background: rgba(255, 230, 109, 0.2);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+}
+
+/* =============== レスポンシブ調整 =============== */
+@media (max-width: 480px) {
+    .container {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .question-text {
+        font-size: 1.2rem;
+    }
+
+    .mbti-btn-size-2 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .mbti-btn-size-1 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mbti-btn-size-0 {
+        width: 30px;
+        height: 30px;
+    }
+
+    .mbti-btn-size--1 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .mbti-btn-size--2 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .mbti-labels {
+        font-size: 0.85rem;
+    }
+
+    .result-title {
+        font-size: 1.8rem;
+    }
+
+    .glass {
+        padding: var(--space-lg) var(--space-sm);
+    }
+}
